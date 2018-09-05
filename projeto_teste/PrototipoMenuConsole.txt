@@ -1,0 +1,23 @@
++-----------------------------------------------------+
+| Seja bem-vindo ao Josebugs
++-----------------------------------------------------+
+
+Escolha uma das opções
+
+Menu:
+
+1) Cadastrar Plano
+2) Listar Todos os Planos
+3) Buscar Planos Por Nome
+4) Buscar Planos Por Cobertura
+5) Buscar Planos Por Classificação
+6) Remover Plano
+-----------------------------------------------------
+7) Cadastrar Cobertura
+8) Listar Todas as Coberturas
+-----------------------------------------------------
+9) Cadastrar Classificação
+10) Listar Todas as Classificações
+
+Digite uma opção: 1
+ 
