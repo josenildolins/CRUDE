@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EntidadesBasicas;
+using Repositorio.EF;
 
 namespace Repositorio
 {
@@ -13,12 +14,24 @@ namespace Repositorio
 
         public void Inserir (CoberturaPlano cobertura)
         {
-            CoberturaMemoriaDb.Add(cobertura);
+            using (var context = new CrudDbContext())
+            {
+                context.CoberturaPlano.Add(cobertura);
+                context.SaveChanges();
+            }
+            
         }
 
         public List<CoberturaPlano> ConsultarCoberturas()
         {
-            return CoberturaMemoriaDb;
+            List<CoberturaPlano> consultarCoberturas;
+
+            using (var context = new CrudDbContext())
+            {
+                consultarCoberturas = context.CoberturaPlano.ToList();
+            }
+
+            return consultarCoberturas;
         }
 
 

@@ -8,7 +8,7 @@ namespace EntidadesBasicas
 {
     public class CoberturaPlano
     {
-        public int IDCorbetura { get; set; }
+        public int IdCobertura { get; set; }
         public string Nome { get; set; }
     }
 }

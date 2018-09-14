@@ -61,6 +61,11 @@ namespace ProjetoNegocio
         {
             return _planoRepositorio.ConsultarPlanosPorCobertura(idCobertura);
         }
+
+        public void AlterarPlano(Plano plano)
+        {
+            this._planoRepositorio.AlterarPlano(plano);
+        }
         #endregion
 
         #region Metodos Relativos a Cobertura

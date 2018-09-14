@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using EntidadesBasicas;
+using Repositorio.EF;
 
 
 namespace Repositorio
@@ -11,15 +14,27 @@ namespace Repositorio
     public class ClassificacaoPlanoRepositorio
     {
         private static readonly List<ClassificacaoPlano> CadastroClassificacao = new List<ClassificacaoPlano>();
+
         public void CadastrarClassificao(ClassificacaoPlano classificacao)
         {
-            CadastroClassificacao.Add(classificacao);
+            using (var context = new CrudDbContext())
+            {
+                context.ClassificacaoPlano.Add(classificacao);
+                context.SaveChanges();
+            }
+            
         }
 
         public List<ClassificacaoPlano> ConsultarClassificacoes()
         {
+            List<ClassificacaoPlano> classificacao;
+            using (var context = new CrudDbContext())
+            {
+                 classificacao = context.ClassificacaoPlano.ToList();
 
-            return CadastroClassificacao;
+            }
+
+            return classificacao;
         }
 
         
