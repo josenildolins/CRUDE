@@ -1,38 +1,43 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using EntidadesBasicas;
 using Microsoft.EntityFrameworkCore;
-using Remotion.Linq.Clauses;
+using Repositorio.Contracts;
 using Repositorio.EF;
 
 namespace Repositorio
 {
-    public class PlanoRepositorio
+    public class PlanoRepositorio : IPlanoRepository
     {
-        private static  readonly  List<Plano> PlanosMemoriaBd = new List<Plano>();
 
-        public void Inserir(Plano plano) 
+        public void Inserir(Plano plano)
         {
-            using (var context = new CrudDbContext()) 
+            using (var context = new CrudDbContext())
             {
-                context.plano.Add(plano);
+                context.Planos.Add(plano);
                 context.SaveChanges();
             }
-           
+
         }
 
-        public void Deletar(int idPlano) 
+        public void Deletar(Plano entidade)
+        {
+            using (var context = new CrudDbContext())
+            {
+                context.Remove<Plano>(entidade);
+                context.SaveChanges();
+            }
+        }
+
+        public void Deletar(int idPlano)
         {
             
-          
             var planos = new Plano()
             {
-                IdPlano = idPlano
+                Id = idPlano
             };
 
-            
+
             using (var context = new CrudDbContext())
             {
                 context.Remove<Plano>(planos);
@@ -40,62 +45,54 @@ namespace Repositorio
             }
         }
 
-        public void AlterarPlano(Plano plano)
-        {
-           
-            
-                using (var context = new CrudDbContext())
-                {
-
-                    context.plano.Update(plano);
-                    context.SaveChanges();
-
-                }
-        }
-
-        public List<Plano> ConsultarPlanos() 
+        public List<Plano> ConsultarTodos()
         {
             List<Plano> consultarPlanos;
-            
+
             using (var context = new CrudDbContext())
             {
-                var query = from plano in context.plano
-                                join classificacao in context.ClassificacaoPlano on plano.IdClassificacaoPlano equals classificacao
-                                    .IdClassificacaoPlano
-                                join cobertura in context.CoberturaPlano on plano.IdCobertura equals cobertura.IdCobertura
-                                select plano;
-
-                consultarPlanos = query
+               //TODO foi removido os JOINS porque depois de mapeados adequadamente o join é feito de maneira automatica
+                consultarPlanos = context.Planos
                     .Include(x => x.ClassificacaoPlano)
                     .Include(x => x.Cobertura)
                     .ToList();
 
             }
             return consultarPlanos;
-
         }
 
-        public List<Plano> ConsultarPlanosPorNome(string nomePlano) 
+        public void Atualizar(Plano entidade)
+        {
+            using (var context = new CrudDbContext())
+            {
+
+                context.Planos.Update(entidade);
+                context.SaveChanges();
+
+            }
+        }
+
+        public List<Plano> ConsultarPlanosPorNome(string nomePlano)
         {
             List<Plano> consultarPlanosPorNome;
             using (var context = new CrudDbContext())
             {
-                consultarPlanosPorNome = context.plano.Where(p => p.Nome == nomePlano).ToList();
-                
-            }
+                //TODO usar contains para poder buscar por nomes parciais
+                consultarPlanosPorNome = context.Planos.Where(p => p.Nome.Contains(nomePlano)).ToList();
 
+            }
             return consultarPlanosPorNome;
-           
+
         }
 
-        public List<Plano> ConsultarPlanosPorCobertura(int idCobertura) 
+        public List<Plano> ConsultarPlanosPorCobertura(int idCobertura)
         {
-            List<Plano> consultarPlanoPorCobertura ;
-           
+            List<Plano> consultarPlanoPorCobertura;
+
             using (var context = new CrudDbContext())
             {
-                
-                consultarPlanoPorCobertura = context.plano
+
+                consultarPlanoPorCobertura = context.Planos
                     .Where(p => p.IdCobertura == idCobertura)
                     .ToList();
             }
@@ -111,14 +108,14 @@ namespace Repositorio
             using (var context = new CrudDbContext())
             {
                 consultarPlanosPorClassificacao =
-                    context.plano
+                    context.Planos
                         .Where(p => p.IdClassificacaoPlano == idClassificacao)
                         .ToList();
             }
 
-                return consultarPlanosPorClassificacao;
+            return consultarPlanosPorClassificacao;
         }
 
-        
+
     }
 }

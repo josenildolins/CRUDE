@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using EntidadesBasicas;
 using ProjetoNegocio;
+using Repositorio;
 
 namespace CRUDAPP
 {
@@ -13,7 +14,7 @@ namespace CRUDAPP
 
         static void Main(string[] args)
         {
-            CadastroEntidades._planoNegocio = new PlanoNegocio();
+            CadastroEntidades._planoNegocio = new PlanoNegocio(new PlanoRepositorio());
             ChamaTelaInicial();
 
             while (valor != "0")
@@ -85,7 +86,7 @@ namespace CRUDAPP
 
             _planoNegocio.AlterarPlano(new Plano
             {
-                IdPlano = idPlano,
+                Id = idPlano,
                 IdClassificacaoPlano = idClassificacaoPlano,
                 Nome = nome,
                 IdCobertura = idCobertura,
@@ -103,7 +104,7 @@ namespace CRUDAPP
             foreach (Plano planos in buscaPlanoPornome)
             {
                 Console.WriteLine(new string('=', 50));
-                Console.WriteLine($"ID: {planos.IdPlano}");
+                Console.WriteLine($"ID: {planos.Id}");
                 Console.WriteLine($"Nome: {planos.Nome}");
                 Console.WriteLine($"Codigo ANS: {planos.CodigoAns}");
                 Console.WriteLine($"Cobertura: {planos.IdCobertura}");
@@ -125,7 +126,7 @@ namespace CRUDAPP
             foreach (ClassificacaoPlano classificacoes in todasClassificacoes)
             {
                 Console.WriteLine(new string('=', 50));
-                Console.WriteLine($"ID: {classificacoes.IdClassificacaoPlano}");
+                Console.WriteLine($"ID: {classificacoes.Id}");
                 Console.WriteLine($"Nome: {classificacoes.Descricao}");
                 Console.WriteLine(new string('=', 50));
             }
@@ -149,7 +150,7 @@ namespace CRUDAPP
 
             _planoNegocio.CadastrarClassificacaoPlano(new ClassificacaoPlano
             {
-                IdClassificacaoPlano = idClassificacao,
+                Id = idClassificacao,
                 Descricao = descricao
             });
         }
@@ -162,7 +163,7 @@ namespace CRUDAPP
             {
 
                 Console.WriteLine(new string('=', 50));
-                Console.WriteLine($"ID: {cobertura.IdCobertura}");
+                Console.WriteLine($"ID: {cobertura.Id}");
                 Console.WriteLine($"Nome: {cobertura.Nome}");
                 Console.WriteLine(new string('=', 50));
             }
@@ -183,8 +184,7 @@ namespace CRUDAPP
 
             _planoNegocio.CadastrarCobertura(new CoberturaPlano
             {
-                Nome = nomeCobertura,
-
+                Nome = nomeCobertura
             });
 
         }
@@ -208,7 +208,7 @@ namespace CRUDAPP
             foreach (Plano plano in classificacao)
             {
                 Console.WriteLine(new string('=', 50));
-                Console.WriteLine($"ID: {plano.IdPlano}");
+                Console.WriteLine($"ID: {plano.Id}");
                 Console.WriteLine($"Nome: {plano.Nome}");
                 Console.WriteLine($"Codigo ANS: {plano.CodigoAns}");
                 Console.WriteLine($"Cobertura: {plano.IdCobertura}");
@@ -232,7 +232,7 @@ namespace CRUDAPP
             foreach (Plano cobertura in buscarPlanosPorCobertura)
             {
                 Console.WriteLine(new string('=', 50));
-                Console.WriteLine($"ID: {cobertura.IdPlano}");
+                Console.WriteLine($"ID: {cobertura.Id}");
                 Console.WriteLine($"Nome: {cobertura.Nome}");
                 Console.WriteLine($"Codigo ANS: {cobertura.CodigoAns}");
                 Console.WriteLine($"Cobertura: {cobertura.IdCobertura}");
@@ -255,7 +255,7 @@ namespace CRUDAPP
             foreach (Plano plano in todosOsPlanos)
             {
                 Console.WriteLine(new string('=', 50));
-                Console.WriteLine($"ID: {plano.IdPlano}");
+                Console.WriteLine($"ID: {plano.Id}");
                 Console.WriteLine($"Nome: {plano.Nome}");
                 Console.WriteLine($"Codigo ANS: {plano.CodigoAns}");
                 Console.WriteLine($"Cobertura: {plano.IdCobertura} - {plano.Cobertura.Nome}");

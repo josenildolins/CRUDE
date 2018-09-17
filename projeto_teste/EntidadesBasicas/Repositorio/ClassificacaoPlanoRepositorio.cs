@@ -11,6 +11,8 @@ using Repositorio.EF;
 
 namespace Repositorio
 {
+
+    //TODO herdar de IRepository<T>
     public class ClassificacaoPlanoRepositorio
     {
         private static readonly List<ClassificacaoPlano> CadastroClassificacao = new List<ClassificacaoPlano>();

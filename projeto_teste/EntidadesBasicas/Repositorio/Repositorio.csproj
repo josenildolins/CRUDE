@@ -126,6 +126,8 @@
   <ItemGroup>
     <Compile Include="ClassificacaoPlanoRepositorio.cs" />
     <Compile Include="CoberturaPlanoRepositorio.cs" />
+    <Compile Include="Contracts\IPlanoRepository.cs" />
+    <Compile Include="Contracts\IRepository.cs" />
     <Compile Include="EF\CrudDbContext.cs" />
     <Compile Include="PlanoRepositorio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

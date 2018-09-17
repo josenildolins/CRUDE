@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassificacaoPlano.cs" />
+    <Compile Include="Enums\ClassificacaoPlanoEnum.cs" />
     <Compile Include="Plano.cs" />
     <Compile Include="CoberturaPlano.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
