@@ -8,8 +8,9 @@ namespace EntidadesBasicas.Enums
 {
     public enum ClassificacaoPlanoEnum
     {
-        Individual =  1,
+        Individual = 1,
         PessoaJuridica = 2,
         PEConsig = 3
+
     }
 }

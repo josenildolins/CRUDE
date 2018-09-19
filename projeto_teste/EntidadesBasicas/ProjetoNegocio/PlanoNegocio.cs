@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Repositorio;
+﻿using System.Collections.Generic;
 using EntidadesBasicas;
 using Repositorio.Contracts;
 
@@ -11,44 +6,32 @@ namespace ProjetoNegocio
 {
     public class PlanoNegocio
     {
-        private readonly ClassificacaoPlanoRepositorio _classificacaoPlanoRepositorioClassificacao = new ClassificacaoPlanoRepositorio();
+        private readonly IClassificacaoRepository _planoRepositorioClassificacao;
         private readonly IPlanoRepository _planoRepositorio;
-        private readonly CoberturaPlanoRepositorio _coberturaRepositorio = new CoberturaPlanoRepositorio();
+        private readonly ICoberturaPlanoRepository _coberturaRepositorio;
 
-        public PlanoNegocio(IPlanoRepository planoRepositorio) {
+        public PlanoNegocio(IPlanoRepository planoRepositorio,
+            IClassificacaoRepository repositorioClassificacao,
+            ICoberturaPlanoRepository coberturaRepositorio)
+        {
+
             this._planoRepositorio = planoRepositorio;
+            this._planoRepositorioClassificacao = repositorioClassificacao;
+            this._coberturaRepositorio = coberturaRepositorio;
+
         }
 
         #region Metodos relativos  a classificacao
         public void CadastrarClassificacaoPlano(ClassificacaoPlano classificacao)
         {
-            _classificacaoPlanoRepositorioClassificacao.CadastrarClassificao(classificacao);
+            _planoRepositorioClassificacao.inserir(classificacao);
         }
 
         public List<ClassificacaoPlano> ConsultarClassificacoes()
         {
-            return _classificacaoPlanoRepositorioClassificacao.ConsultarClassificacoes();
+            return _planoRepositorioClassificacao.ConsultarTodos();
         }
         #endregion
-        public List<Plano> ConsultarPlanosPorClassificacao(int idClassificacao)
-        {
-            return _planoRepositorio.ConsultarPlanosPorClassificacao(idClassificacao);
-        }
-
-        //Metodo comentado de exemplo
-        //public List<Plano> ConsultarPlanosPorClassificacao(ClassificacaoPlanoEnum classificacao)
-        //{
-
-        //    var planos = _planoRepositorio.ConsultarPlanosPorClassificacao((int)classificacao);
-        //    foreach (Plano plano in planos)
-        //    {
-        //        if (plano.IdClassificacaoPlano == (int)ClassificacaoPlanoEnum.Individual)
-        //        {
-
-        //        }
-        //    }
-        //}
-
 
         #region Métodos relativos a planos
         public List<Plano> ConsultarPlanos()
@@ -62,9 +45,10 @@ namespace ProjetoNegocio
         }
 
 
-        public void CadastrarPlano(Plano plano)
+        public void Inserir(Plano plano)
         {
-            this._planoRepositorio.Inserir(plano);
+            this._planoRepositorio.inserir(plano);
+
         }
 
         public void Deletar(int id)
@@ -81,6 +65,11 @@ namespace ProjetoNegocio
         {
             this._planoRepositorio.Atualizar(plano);
         }
+
+        public List<Plano> ConsultarPlanosPorClassificacao(int idClassificacao)
+        {
+            return _planoRepositorio.ConsultarPlanosPorClassificacao(idClassificacao);
+        }
         #endregion
 
         #region Metodos Relativos a Cobertura
@@ -88,14 +77,29 @@ namespace ProjetoNegocio
         public void CadastrarCobertura(CoberturaPlano cobertura)
 
         {
-            this._coberturaRepositorio.Inserir(cobertura);
+            this._coberturaRepositorio.inserir(cobertura);
         }
 
         public List<CoberturaPlano> ConsultarCobertura()
         {
-            return this._coberturaRepositorio.ConsultarCoberturas();
+            return this._coberturaRepositorio.ConsultarTodos();
         }
 
         #endregion
+
+        //Metodo comentado de exemplo
+        //public List<Plano> ConsultarPlanosPorClassificacao(ClassificacaoPlanoEnum classificacao)
+        //{
+
+        //    var planos = _planoRepositorio.ConsultarPlanosPorClassificacao((int)classificacao);
+        //    foreach (Plano plano in planos)
+        //    {
+        //        if (plano.IdClassificacaoPlano == (int)ClassificacaoPlanoEnum.Individual)
+        //        {
+
+        //        }
+        //    }
+        //}
+
     }
 }

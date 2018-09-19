@@ -10,7 +10,7 @@ namespace Repositorio
     public class PlanoRepositorio : IPlanoRepository
     {
 
-        public void Inserir(Plano plano)
+        public void inserir(Plano plano)
         {
             using (var context = new CrudDbContext())
             {
@@ -24,14 +24,14 @@ namespace Repositorio
         {
             using (var context = new CrudDbContext())
             {
-                context.Remove<Plano>(entidade);
+                context.Remove(entidade);
                 context.SaveChanges();
             }
         }
 
         public void Deletar(int idPlano)
         {
-            
+
             var planos = new Plano()
             {
                 Id = idPlano
@@ -40,7 +40,7 @@ namespace Repositorio
 
             using (var context = new CrudDbContext())
             {
-                context.Remove<Plano>(planos);
+                context.Remove(planos);
                 context.SaveChanges();
             }
         }
@@ -51,7 +51,7 @@ namespace Repositorio
 
             using (var context = new CrudDbContext())
             {
-               //TODO foi removido os JOINS porque depois de mapeados adequadamente o join é feito de maneira automatica
+
                 consultarPlanos = context.Planos
                     .Include(x => x.ClassificacaoPlano)
                     .Include(x => x.Cobertura)
@@ -77,7 +77,7 @@ namespace Repositorio
             List<Plano> consultarPlanosPorNome;
             using (var context = new CrudDbContext())
             {
-                //TODO usar contains para poder buscar por nomes parciais
+
                 consultarPlanosPorNome = context.Planos.Where(p => p.Nome.Contains(nomePlano)).ToList();
 
             }

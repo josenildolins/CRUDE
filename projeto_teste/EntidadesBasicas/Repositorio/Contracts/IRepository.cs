@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 
-namespace Repositorio.Contracts {
-    public interface IRepository<T> {
+namespace Repositorio.Contracts
+{
+    public interface IRepository<T>
+    {
 
-        void Inserir(T entidade);
+        void inserir(T entidade);
 
         void Deletar(T entidade);
 

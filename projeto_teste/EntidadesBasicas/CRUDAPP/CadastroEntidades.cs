@@ -10,11 +10,12 @@ namespace CRUDAPP
     {
         private static PlanoNegocio _planoNegocio;
         private static string valor;
-        //private static string nomePlano;
 
         static void Main(string[] args)
         {
-            CadastroEntidades._planoNegocio = new PlanoNegocio(new PlanoRepositorio());
+            CadastroEntidades._planoNegocio = new PlanoNegocio(
+                new PlanoRepositorio(), new ClassificacaoPlanoRepositorio(), new CoberturaPlanoRepositorio());
+
             ChamaTelaInicial();
 
             while (valor != "0")
@@ -66,7 +67,7 @@ namespace CRUDAPP
         {
 
             Console.WriteLine(new string('=', 50));
-            Console.WriteLine("Digite a ID do Plano qque deseja Modificar");
+            Console.WriteLine("Digite a ID do Plano que deseja Modificar");
             Console.WriteLine(new string('=', 50));
 
             Console.WriteLine("ID: ");
@@ -193,6 +194,7 @@ namespace CRUDAPP
         {
             Console.WriteLine("Digite a ID do plano");
             int idPlano = Convert.ToInt32(Console.ReadLine());
+            Console.Clear();
             _planoNegocio.Deletar(idPlano);
 
         }
@@ -201,6 +203,7 @@ namespace CRUDAPP
         {
             Console.WriteLine("Digite a ID da Classificacao do plano");
             int idClassificacao = Convert.ToInt32(Console.ReadLine());
+            Console.Clear();
 
             List<Plano> classificacao = _planoNegocio.ConsultarPlanosPorClassificacao(idClassificacao);
 
@@ -226,6 +229,7 @@ namespace CRUDAPP
         {
             Console.WriteLine("Digite o código da Cobertura do plano");
             int idCobertura = Convert.ToInt32(Console.ReadLine());
+            Console.Clear();
             List<Plano> buscarPlanosPorCobertura = _planoNegocio.ConsultarPlanosPorCobertura(idCobertura);
 
 
@@ -283,8 +287,9 @@ namespace CRUDAPP
             int idCobertura = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Classificação: ");
             int idClassificacao = Convert.ToInt32(Console.ReadLine());
+            Console.Clear();
 
-            _planoNegocio.CadastrarPlano(new Plano
+            _planoNegocio.Inserir(new Plano
             {
                 Nome = nomePlano,
                 CodigoAns = codigoAns,
@@ -325,3 +330,4 @@ namespace CRUDAPP
         }
     }
 }
+

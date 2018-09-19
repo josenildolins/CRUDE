@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using EntidadesBasicas;
+using Repositorio.Contracts;
 using Repositorio.EF;
 
 namespace Repositorio
 {
-    //TODO herdar de IRepository<T>
-    public class CoberturaPlanoRepositorio
+
+    public class CoberturaPlanoRepositorio : ICoberturaPlanoRepository
     {
-        //TODO remover variaveis não utilizadas(lixo)
-        //TODO Lembrar de formatar adequadamente o codigo (CTRL+K e CTRL+D)
+
         private static readonly List<CoberturaPlano> CoberturaMemoriaDb = new List<CoberturaPlano>();
 
-        public void Inserir(CoberturaPlano cobertura)
+
+        public void inserir(CoberturaPlano cobertura)
         {
             using (var context = new CrudDbContext())
             {
@@ -25,7 +23,29 @@ namespace Repositorio
 
         }
 
-        public List<CoberturaPlano> ConsultarCoberturas()
+        public void Deletar(CoberturaPlano entidade)
+        {
+            using (var context = new CrudDbContext())
+            {
+                context.CoberturaPlano.Remove(entidade);
+                context.SaveChanges();
+            }
+        }
+
+        public void Deletar(int id)
+        {
+            var coberturaPlano = new CoberturaPlano()
+            {
+                Id = id
+            };
+            using (var context = new CrudDbContext())
+            {
+                context.CoberturaPlano.Remove(coberturaPlano);
+                context.SaveChanges();
+            }
+        }
+
+        public List<CoberturaPlano> ConsultarTodos()
         {
             List<CoberturaPlano> consultarCoberturas;
 
@@ -37,6 +57,14 @@ namespace Repositorio
             return consultarCoberturas;
         }
 
+        public void Atualizar(CoberturaPlano entidade)
+        {
+            using (var context = new CrudDbContext())
+            {
+                context.CoberturaPlano.Update(entidade);
+                context.SaveChanges();
+            }
+        }
 
     }
 }
