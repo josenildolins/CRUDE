@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using Abp.AspNetCore;
 using Abp.AspNetCore.Configuration;
 using Abp.AspNetCore.SignalR;
+using Abp.AutoMapper;
 using Abp.Modules;
 using Abp.Reflection.Extensions;
 using Abp.Zero.Configuration;
@@ -19,7 +20,8 @@ namespace JosenBug
          typeof(JosenBugApplicationModule),
          typeof(JosenBugEntityFrameworkModule),
          typeof(AbpAspNetCoreModule)
-        ,typeof(AbpAspNetCoreSignalRModule)
+        , typeof(AbpAspNetCoreSignalRModule),
+        typeof(AbpAutoMapperModule)
      )]
     public class JosenBugWebCoreModule : AbpModule
     {

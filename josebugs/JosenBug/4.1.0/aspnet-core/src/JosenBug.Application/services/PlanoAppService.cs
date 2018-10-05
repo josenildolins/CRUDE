@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Abp.Domain.Repositories;
-using Abp.Json;
+using Abp.ObjectMapping;
 using JosenBug.Contracts;
 using JosenBug.Dto;
 using Microsoft.EntityFrameworkCore;
@@ -12,10 +12,12 @@ namespace JosenBug.services
     public class PlanoAppService : JosenBugAppServiceBase, IPlanoAppService
     {
         private readonly IRepository<Plano.Plano> _planoRepository;
+        private readonly IObjectMapper _objectMapper;
 
-        public PlanoAppService(IRepository<Plano.Plano> planoRepository)
+        public PlanoAppService(IRepository<Plano.Plano> planoRepository, IObjectMapper objectMapper)
         {
             _planoRepository = planoRepository;
+            _objectMapper = objectMapper;
         }
 
 
@@ -30,28 +32,88 @@ namespace JosenBug.services
             return await _planoRepository.InsertAndGetIdAsync(plan);
         }
 
-        public async Task<IList<Plano.Plano>> ConsultarPlanos()
+        public async Task<IList<PlanoOutputDto>> ConsultarPlanos()
         {
-
-            return await _planoRepository.GetAllIncluding(p => p.Classificacao)
+            List<Plano.Plano> planos = await _planoRepository.GetAllIncluding(p => p.Classificacao)
                  .Include(p => p.Cobertura)
                  .ToListAsync();
 
+            var planosDto = new List<PlanoOutputDto>();
+
+            //_objectMapper.Map<Plano.Plano>(planosDto);
+
+            foreach (var plano in planos)
+            {
+                planosDto.Add(new PlanoOutputDto()
+                {
+                    CodigoAns = plano.CodigoANS,
+                    Nome = plano.Nome,
+                    Cobertura = new CoberturaOutputDto(),
+                    Classificacao = new ClassificacaoOutputDto()
+
+                });
+            }
+
+
+            return planosDto;
         }
 
-        public async Task<IList<Plano.Plano>> ListarPlanoPorNome(string nome)
+        public async Task<IList<PlanoOutputDto>> ListarPlanoPorNome(string nome)
         {
-            return await _planoRepository.GetAll().Where(p => p.Nome.Contains(nome)).ToListAsync();
+            List<Plano.Plano> planos = await _planoRepository.GetAll()
+                .Where(p => p.Nome.Contains(nome))
+                .ToListAsync();
+
+            var planosDto = new List<PlanoOutputDto>();
+
+            foreach (var plano in planos)
+            {
+                planosDto.Add(new PlanoOutputDto());
+            }
+
+            return planosDto;
         }
 
-        public async Task<IList<Plano.Plano>> ConsultarPlanoPorCobertura(int cobertura)
+        public async Task<IList<PlanoOutputDto>> ListarPlanoPorCobertura(int cobertura)
         {
-            return await _planoRepository.GetAll().Where(p => p.IDCobertura.Equals(cobertura)).ToListAsync();
+            List<Plano.Plano> planos = await _planoRepository.GetAll()
+                .Where(p => p.IDCobertura.Equals(cobertura))
+                .ToListAsync();
+
+            var planosDto = new List<PlanoOutputDto>();
+
+            foreach (var plano in planos)
+            {
+                planosDto.Add(new PlanoOutputDto());
+
+            }
+
+            return planosDto;
+
+
         }
 
         public async Task DeletarPlano(int id)
         {
             await _planoRepository.DeleteAsync(id);
+        }
+
+        public async Task<IList<PlanoOutputDto>> ListarPlanoPorClassificacao(int classificacao)
+        {
+            List<Plano.Plano> planos = await _planoRepository.GetAll()
+                .Where(p => p.IDClassificacaoPlano.Equals(classificacao))
+                .ToListAsync();
+
+            var planosDto = new List<PlanoOutputDto>();
+
+            foreach (var plano in planos)
+            {
+                planosDto.Add(new PlanoOutputDto());
+
+            }
+
+            return planosDto;
+
         }
     }
 }

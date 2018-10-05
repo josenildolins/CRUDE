@@ -9,10 +9,11 @@ namespace JosenBug.Contracts
     public interface IPlanoAppService: IApplicationService
     {
         Task<int> InserirPlano(PlanoInputDto input);
-        Task<IList<Plano.Plano>> ConsultarPlanos();
-        Task<IList<Plano.Plano>> ListarPlanoPorNome(string nome);
-        Task<IList<Plano.Plano>> ConsultarPlanoPorCobertura(int cobertura);
+        Task<IList<PlanoOutputDto>> ConsultarPlanos();
+        Task<IList<PlanoOutputDto>> ListarPlanoPorNome(string nome);
+        Task<IList<PlanoOutputDto>> ListarPlanoPorCobertura(int cobertura);
         Task DeletarPlano(int id);
-        
+        Task<IList<PlanoOutputDto>> ListarPlanoPorClassificacao(int classificacao);
+
     }
 }

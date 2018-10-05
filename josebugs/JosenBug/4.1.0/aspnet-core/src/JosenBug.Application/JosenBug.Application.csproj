@@ -11,6 +11,9 @@
     <RootNamespace>JosenBug</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Abp.AutoMapper" Version="3.8.3" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\JosenBug.Core\JosenBug.Core.csproj" />
   </ItemGroup>
 </Project>

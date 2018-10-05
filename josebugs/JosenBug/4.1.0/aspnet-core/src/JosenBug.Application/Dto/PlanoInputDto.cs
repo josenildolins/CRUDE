@@ -10,5 +10,6 @@ namespace JosenBug.Dto
         public int IdClassificacao { get; set; }
         public string Nome { get; set; }
         public string CodigoAns { get; set; }
+        
     }
 }

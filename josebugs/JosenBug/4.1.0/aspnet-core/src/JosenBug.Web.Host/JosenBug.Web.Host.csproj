@@ -28,6 +28,7 @@
     <ProjectReference Include="..\JosenBug.Web.Core\JosenBug.Web.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Abp.AutoMapper" Version="3.8.3" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.4">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>

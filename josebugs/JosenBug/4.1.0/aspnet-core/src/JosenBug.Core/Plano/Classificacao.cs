@@ -11,6 +11,6 @@ namespace JosenBug.Plano
         {
             
         }
-        public string Nome { get; set; }
+        public ClassificacaoOutputDto Nome { get; set; }
     }
 }
