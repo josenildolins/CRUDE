@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace JosenBug.Dto
 {
     public class PlanoInputDto
@@ -10,6 +7,6 @@ namespace JosenBug.Dto
         public int IdClassificacao { get; set; }
         public string Nome { get; set; }
         public string CodigoAns { get; set; }
-        
+
     }
 }

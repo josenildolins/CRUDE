@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Abp.Application.Services;
+using JosenBug.Dto;
 
 namespace JosenBug.Contracts
 {
-    public interface  IClassificacaoAppService: IApplicationService
+    public interface IClassificacaoAppService : IApplicationService
     {
-        Task<int> inserirClassificacao();
+        Task<ClassificacaoInputDto> InserirClassificacao();
 
     }
 }

@@ -48,8 +48,14 @@ namespace JosenBug.services
                 {
                     CodigoAns = plano.CodigoANS,
                     Nome = plano.Nome,
-                    Cobertura = new CoberturaOutputDto(),
+                    Cobertura = new CoberturaOutputDto()
+                    {
+                        Cobertura = plano.Cobertura.Nome
+                    },
                     Classificacao = new ClassificacaoOutputDto()
+                    {
+                        Classificacao = plano.Classificacao.Nome
+                    }
 
                 });
             }

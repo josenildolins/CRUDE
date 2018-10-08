@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Abp.Domain.Entities;
+﻿using Abp.Domain.Entities;
 
 namespace JosenBug.Plano
 {
@@ -9,7 +6,7 @@ namespace JosenBug.Plano
     {
         public Cobertura()
         {
-            
+
         }
         public string Nome { get; set; }
     }

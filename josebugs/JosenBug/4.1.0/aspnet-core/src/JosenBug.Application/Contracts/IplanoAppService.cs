@@ -2,11 +2,10 @@
 using System.Threading.Tasks;
 using Abp.Application.Services;
 using JosenBug.Dto;
-using JosenBug.Plano;
 
 namespace JosenBug.Contracts
 {
-    public interface IPlanoAppService: IApplicationService
+    public interface IPlanoAppService : IApplicationService
     {
         Task<int> InserirPlano(PlanoInputDto input);
         Task<IList<PlanoOutputDto>> ConsultarPlanos();

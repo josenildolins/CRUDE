@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using JosenBug.Contracts;
+using JosenBug.Dto;
 
 namespace JosenBug.services
 {
-    public class ClassificacaoAppService: JosenBugAppServiceBase, IClassificacaoAppService
+    public class ClassificacaoAppService : JosenBugAppServiceBase, IClassificacaoAppService
     {
-        public Task<int> inserirClassificacao()
+        public Task<ClassificacaoInputDto> InserirClassificacao()
         {
             throw new NotImplementedException();
         }
